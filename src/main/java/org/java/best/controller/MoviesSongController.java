@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class MoviesSongController {
@@ -33,9 +33,9 @@ public class MoviesSongController {
 	}
 
 	@GetMapping("/")
-	public String getHome(Model model, @RequestParam(name = "name") String name) {
+	public String getHome(Model model) {
 		
-		model.addAttribute("name", name);
+		model.addAttribute("name", "Alessandro");
 		
 		return "home";
 	}
@@ -43,18 +43,9 @@ public class MoviesSongController {
 	@GetMapping("/movies")
 	public String getMovies(Model model) {
 		
-		String moviesList = "";
 		List<Movie> movies = getBestMovies();
 		
-		for(int i = 0; i<movies.size(); i++) {
-			if (i<movies.size()-1) {
-				moviesList += movies.get(i).getTitle() + ", ";
-			} else {
-				moviesList += movies.get(i).getTitle() + ".";
-			}
-		}
-		
-		model.addAttribute("moviesList", moviesList);
+		model.addAttribute("movies", movies);
 		
 		return "movies";
 	}
@@ -62,18 +53,10 @@ public class MoviesSongController {
 	@GetMapping("/songs")
 	public String getSongs(Model model) {
 		
-		String songsList = "";
+		
 		List<Song> songs = getBestSongs();
 		
-		for(int i = 0; i<songs.size(); i++) {
-			if (i<songs.size()-1) {
-				songsList += songs.get(i).getTitle() + ", ";
-			} else {
-				songsList += songs.get(i).getTitle() + ".";
-			}
-		}
-		
-		model.addAttribute("songsList", songsList);
+		model.addAttribute("songs", songs);
 		
 		return "songs";
 	}
@@ -82,11 +65,11 @@ public class MoviesSongController {
 	public String getMovieDetail(Model model, @PathVariable("id") long id) {
 		
 		List<Movie> movies = getBestMovies();
-		String movie = null;
+		Movie movie = null;
 		
 		for(int i = 0; i<movies.size(); i++) {
 			if(id == movies.get(i).getId()) {
-				movie = movies.get(i).getTitle();
+				movie = movies.get(i);
 				break;
 			}
 		}
@@ -100,11 +83,11 @@ public class MoviesSongController {
 	public String getSongDetail(Model model, @PathVariable("id") long id) {
 		
 		List<Song> songs = getBestSongs();
-		String song = null;
+		Song song = null;
 		
 		for(int i = 0; i<songs.size(); i++) {
 			if(id == songs.get(i).getId()) {
-				song = songs.get(i).getTitle();
+				song = songs.get(i);
 				break;
 			}
 		}

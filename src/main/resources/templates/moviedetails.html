@@ -2,10 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}"/>
 <title>Movie Details</title>
 </head>
 <body>
-	<h1>Dettagli film:</h1>
-	<p th:text="${movie}"></p>
+	<th:block th:replace="frags/header :: header"></th:block>
+	<main class="container text-center">
+		<div th:if="${movie != null}">
+			<h1 class="mb-3">Dettagli film:</h1>
+			<p th:text="${movie.title}"></p>		
+		</div>
+		<div th:unless="${movie != null}">
+			<h1>404, film non trovato</h1>	
+		</div>
+	</main>
 </body>
 </html>

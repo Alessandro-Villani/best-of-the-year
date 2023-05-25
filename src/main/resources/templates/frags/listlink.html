@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<a 
+	th:fragment="listLink(link, title)"
+	th:href="@{${link}}"
+	th:text="${title}"
+	>
+	
+</a>
+
+</body>
+</html>
